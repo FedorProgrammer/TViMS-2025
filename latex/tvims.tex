@@ -1,0 +1,533 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage[notlof,notlot]{tocbibind}
+\usepackage{needspace}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\newtheoremstyle{breakstyle}  % Имя стиля
+  {\topsep}                   % Отступ сверху
+  {\topsep}                   % Отступ снизу
+  {\normalfont}               % Шрифт для тела
+  {0pt}                       % Отступ для тела
+  {\bfseries}                 % Стиль заголовка
+  {.}                         % Знак после заголовка
+  {\newline}                  % Пространство после заголовка: новая строка
+  {}                          % Спецификация заголовка
+
+\theoremstyle{breakstyle}
+\newtheorem{definition}{Определение}[subsection]
+\newtheorem{theorem}{Теорема}[subsection]
+\newtheorem{lemma}[theorem]{Лемма}
+
+\setlength{\parindent}{0pt} 
+
+\title{ТВиМС-2025}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+\section{Теория вероятностей.}
+
+\subsection{Основы теории вероятностей и схема Бернулли.}
+
+\subsubsection{Классическое и геометрическое определение вероятности.}
+\begin{definition}[Пространство элементарных событий]
+
+$\Omega$ - пространство элементарных событий. \\
+$\omega_1$, $\omega_2$, ... - элементарные события. \\
+$A \subset \Omega$ - случайное событие.
+$\mathscr{A} = \{A \subset \Omega\}$ - $\sigma$-алгебра подмножеств.
+
+\end{definition}
+
+\begin{definition}[$\sigma$-алгебра событий]
+
+Свойства алгебры событий:
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $\Omega \in \mathscr{A}$ - достоверное событие.
+    \item Если $A \subset \mathscr{A}$, то $\overline{A} \subset \mathscr{A}$
+    \item $\emptyset$ - невозможное событие.
+    \item Если A, B - события (т.е. принадлежат $\mathscr{A}$), то $A \cup B$ и $A \cap B$ - события. 
+\end{enumerate}
+
+\vspace{1em}
+Свойства $\sigma$-алгебра событий:
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item Все свойства алгебры событий.
+    \item Если $A_1$, $A_2$, ... , $A_n \in \mathscr{A}$, то:
+    \begin{enumerate}
+        \item $\bigcup_{i=1}^{\infty} A_i \in \mathscr{A}$
+        \item $\bigcap_{i=1}^{\infty} A_i \in \mathscr{A}$
+    \end{enumerate}
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Алгебра событий} - семейство подмножеств $\Omega$, замкнутое относительно операций конечного объединения, пересечения и дополнения. \\
+\textbf{$\sigma$-алгебра событий} - семейство подмножеств $\Omega$, замкнутое относительно операций счетного объединения, пересечения и дополнения.
+
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/table.png}
+    \caption{Таблица соответствий}
+    \label{fig:prob-table}
+\end{figure}
+
+\begin{definition}[Класическое определение вероятности]
+
+Пусть $\mid \Omega \mid = n$
+$P(\omega_i) = \frac{1}{n}$ (т.е. события равновероятны). \\
+$A \subset \Omega$ - событие (подмножество элементарных событий). \\
+$\mid A \mid = k \rightarrow P(A) = \frac{k}{n}$ \\
+Следовательно, $0 \leq P(A) \leq 1$.
+
+\end{definition}
+
+\begin{definition}[Геометрическое определение вероятности]
+
+Рассматриваем Лебегову $\sigma$-алгебру $\rightarrow$ mes (мера) - существует и конечна. \\
+\textbf{Мера Лебега} - мера, обобщающая понятия длины отрезка, площади фигуры и объёма тела на произвольное n-мерное евклидово пространство. \\
+
+$0 < mes(\Omega) < +\infty$ \\
+$mes(\omega_i) = 0$ \\
+$A \subset \Omega \rightarrow P(A) = \frac{mes(A)}{mes(\Omega)}$
+
+\vspace{1em}
+Проще говоря:
+$\Omega$ - плоское, значит у $\Omega$ $\exists$ площадь, и она конечна. \\
+$0 < S(\Omega) < +\infty$ \\
+$S(\omega_i) = 0$\\
+$A \subset \Omega \rightarrow P(A) = \frac{S(A)}{S(\Omega)}$ \\
+
+\end{definition}
+
+\subsubsection{Основные комбинаторные формулы.}
+\begin{definition}[Размещения]
+\textbf{Размещения} - способ расположить в определенном порядке некоторого числа элементов из заданного конечного множества.
+
+\vspace{1em}
+
+\textbf{Формулы:}
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item \textbf{Размещения без повторений:} $A_{n}^{k} = n(n-1)(n-2)...(n-k+1) = \frac{n!}{(n - k)!}$
+    \item \textbf{Размещения с повторениями:} $U_{n}^{k} = n \cdot n \cdot ... \cdot n = {n}^{k}$
+\end{enumerate}    
+
+\end{definition}
+
+\begin{definition}[Сочетание]
+\textbf{Сочетания} - способ расположения с несущественной последовательностью выбора некоторого числа элементов из заданного конечного множества.
+
+\vspace{1em}
+
+\textbf{Формулы:}
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item \textbf{Сочетания без повторений:} $C_{n}^{k} = \frac{A_{n}^{k}}{k!} = \frac{n!}{(n - k)! \cdot k!}$
+    \item \textbf{Сочетания с повторениями:} $V_{n}^{k} = C_{n+k-1}^{n-1} = \frac{(n+k-1)!}{k! \cdot (n-1)!}$
+\end{enumerate} 
+
+\end{definition}
+
+\subsubsection{Аксиоматика Колмогорова.}
+\begin{definition}[Несовместные события]
+
+События A и B - несовместные $\leftrightarrow$ $A \cap B = AB = 0$. \\
+Т.е. события не могут наступить одновременно.
+
+\end{definition}
+
+\begin{definition}[Вероятность как функция]
+$\Omega$ - пространство элементарных событий. \\
+$\omega_i \in \Omega$ - элементарное событие. \\
+$\mathscr{A}$ - $\sigma$-алгебра событий. \\
+
+Тогда вероятность P - функция на множестве событий:
+$P: \mathscr{A} \rightarrow [0; 1]$ \\
+
+Со следующими \textbf{аксиомами:}
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $P(\Omega) = 1$
+    \item $\forall A, B: A \cap B = \emptyset \rightarrow P(A \cup B) = P(A) + P(B)$
+    \item (Счетная аддитивность) $\forall A_1, ... , A_n \in \mathscr{A}$ $P(\bigcup_{i=1}^{\infty} A_i) = \Sigma_{i=1}^{\infty}P(A_i)$, причем $A_{i}A_{j} = \emptyset$, если $i \neq j$
+\end{enumerate}
+
+\vspace{1em}
+
+Из аксиом можно получить данные \textbf{следствия:}
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $P(\emptyset) = 0$
+    \item $P(\overline{A}) = 1 - P(A)$
+    \item $A \subset B \rightarrow P(A) \leq P(B)$
+\end{enumerate}
+
+\end{definition}
+
+\subsubsection{Условная вероятность. Независимость. Формулы сложения и умножения.}
+\begin{definition}[Условная вероятность]
+
+A, B - события, причем: $P(A) > 0$. \\
+Тогда вероятность события B при \textbf{условии} A: \\
+$P(B | A) = \frac{P(AB)}{P(A)} = P_{A}(B)$
+
+\end{definition}
+
+\begin{definition}[Формула умножения]
+A, B - события: $P(A) > 0$ и $P(B) > 0$. \\
+\textbf{Формула умножения:} $P(AB) = P(B | A) \cdot P(A) = P(A | B) \cdot P(B)$ \\
+
+\textbf{Пример:} \\
+В колоде 36 карт. На удачу вытащили 2 карты. Какова вероятность, что обе карты - пики?\\
+
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item \textbf{Класическая вероятность:} $\frac{Число благоприятных исходов}{Общее число исходов} = \frac{C_{9}^{2}}{C_{36}^{2}} = \frac{9 \cdot 8}{36 \cdot 35}$
+    \item \textbf{Формула умножения:} A - первая карта - пики, B - вторая карта - пики. Тогда $P(AB) = P(A) \cdot P(B | A) = \frac{9}{36} \cdot  \frac{8}{35}$
+\end{enumerate}
+
+\end{definition}
+
+\begin{theorem}[Условная вероятность и аксиоматика Колмогорова]
+
+Зафиксируем $A \subset \Omega$: $P(A) \neq 0$. \\
+Тогда $P_{A}(B)$ - подчиняется аксиоматике Колмогорова, т.е. для нее выполняются те же аксиомы.
+
+$\square$
+
+\textbf{Доказательство 1ой аксиомы:} \\
+$P_{A}(\Omega) = \frac{P(\Omega A)}{P(A)}$ \\
+Т.к. $A \subset \Omega$, то $\Omega A = A$ \\
+Следовательно, $P_{A}(\Omega) = \frac{P(A)}{P(A)} = 1$ \\
+
+\textbf{Доказательство 2ой аксиомы:} \\
+Пусть B, C - события: $BC = \emptyset$, тогда: \\
+$P_{A}(B \cup C) = \frac{P(A(B \cup C))}{P(A)} = \frac{P(AB \cup AC)}{P(A)}$ \\
+Т.к. $BC = \emptyset$, получаем: $ABAC = ABC = \emptyset$, т.е. события $AB$ и $AC$ - несовместны. \\
+Следовательно, $\frac{P(AB \cup AC)}{P(A)} = \frac{P(AB) + P(AC)}{P(A)}$ \\
+Значит, $P_{A}(B \cup C) = \frac{P(AB) + P(AC)}{P(A)}$ \\
+
+\vspace{1em}
+
+$P_{A}(B) = \frac{P(AB)}{P(A)}$ \\
+$P_{A}(C) = \frac{P(AC)}{P(A)}$ \\
+Значит, $P_{A}(B) + P_{A}(C) = \frac{P(AB) + P(AC)}{P(A)}$ \\
+
+\vspace{1em}
+
+Итог: $P_{A}(B \cup C) = \frac{P(AB) + P(AC)}{P(A)} = P_{A}(B) + P_{A}(C)$ \\
+
+\textbf{3яя аксиома} доказывается аналогичным образом.
+
+\hfill$\blacksquare$
+
+\end{theorem}
+
+\begin{definition}[Независимые события. Попарно независимые события. Независимые в совокупности события]
+
+Пусть A и B - события. \\
+Тогда A и B называют \textbf{независимыми событиями} $\leftrightarrow$ $P(AB) = P(A) \cdot P(B)$ \\
+
+Пусть $A_{1}, ... , A_{n}$ - события. \\
+Тогда они \textbf{попарно независимы}, если $\forall i \neq j$, $A_{i}$ и $A_{j}$ независимы. \\
+
+Пусть $A_{1}, ... , A_{n}$ - события. \\
+Тогда они \textbf{независимы в совокупности}, если $\forall k \in \overline{[2..n]}$ и $\forall$ набора $1 \leq i_{1} < i_{2} < ... < i_{k} \leq n$, выполняется: $P(A_{i_{1}}A_{i_{2}}...A_{i_k}) = P(A_{i_{1}})P(A_{i_{2}})...P(A_{i_{k}})$
+
+\end{definition}
+
+\begin{definition}[Формула сложения]
+
+Пусть A, B - события, тогда: \\
+$P(A \cup B) = P(A) + P(B) - P(AB)$
+
+$\square$
+
+$P(A \cup B) = P(A \overline{B} \cup AB \cup B \overline{A}) = P(A \overline{B}) + P(AB) + P(B \overline{A})$ \\
+
+\vspace{1em}
+
+$A = A \Omega = A(\overline{B} \cup B) =  A \overline{B} \cup AB$ \\
+$B = AB \cup B \overline{A}$ \\
+
+\vspace{1em}
+
+$P(A \cup B) = P(A \overline{B}) + P(AB) + P(B \overline{A}) + P(BA) - P(AB) = P(A) + P(B) - P(AB)$ \\
+Итог: $P(A \cup B) = P(A) + P(B) - P(AB)$ \\
+
+\hfill$\blacksquare$
+
+Пусть A, B, C - события. \\
+Аналогично (через разбиения на несовместные), доказывается следующее: \\
+$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(AB) - P(BC) - P(AC)$ \\
+
+\vspace{1em}
+
+Формула сложения в \textbf{общем виде:}\\
+$A_{1}, ... , A_{n}$ - события.
+
+$P(A_{1} \cup ... \cup A_{n}) = \Sigma_{i=1}^{n}P(A_{i}) + ... + {(-1)}^{r+1}\Sigma_{1 \leq i_{1} < i_{2} < ... < i_{r} \leq n}P(A_{i_{1}}A_{i_{2}}...A_{i_{r}}) + ... + {(-1)}^{n}P(\bigcap_{i=1}^{n}A_{i})$ \\
+
+\vspace{1em}
+Если, дополнительно, $A_{1}, ... , A_{n}$ - независимы в совокупности, то: \\
+$P(\bigcup_{i=1}^{n}A_{i}) = 1 - P(\bigcap_{i=1}^{n}\overline{A_{i}}) = 1 - \sqcap_{i=1}^{n}(1 - P(A_{i}))$
+
+\end{definition}
+
+\subsubsection{Формула полной вероятности.}
+\begin{definition}[Формула полной вероятности]
+
+Разобъем множество элементарных событий $\Omega$ на независимые попарно гипотезы $H_{1} ... H_{n}$. \\
+Т.е. $\Omega = \bigcup_{i=1}^{n}H_{i}$ и $\forall i \neq j \rightarrow H_{i}H_{j} = \emptyset$. \\
+Причем $\forall i H_{i} > 0$, иначе объединим эту гипотизу с другой. \\
+
+\vspace{1em}
+
+\textbf{Формула полной вероятности:} $P(A) = \Sigma_{i=1}^{n}P(A | H_{i})P(H_{i})$
+
+$\square$
+
+По итогу получаем следующее: $\forall A \in \mathscr{A} \rightarrow P(A) = P(A \Omega) = \bigcup_{i=1}^{n}(AH_{i})$ \\
+По попарной независимости и правилу умножения: $\bigcup_{i=1}^{n}(AH_{i}) = \Sigma_{i=1}^{n}(AH_{i}) = \Sigma_{i=1}^{n}P(A | H_{i})P(H_{i})$ \\
+
+\hfill$\blacksquare$
+
+\end{definition}
+
+\subsubsection{Формула Байеса.}
+\begin{definition}[Формула Байеса]
+
+Для получения вероятности наступления конкретной гипотезы используется формула Байеса. \\
+
+A - событие: $P(A) \neq 0$, $H_{1}, ... , H_{i}$ - гипотезы, тогда: \\
+\textbf{Формула Байеса:} $P(H_{i} | A) = \frac{P(A | H_{i}) \cdot P(H_{i})}{P(A)} = \frac{P(A | H_{i}) \cdot P(H_{i})}{\Sigma_{j=1}^{n}P(A | H_{j}) \cdot P(H_{j})}$
+
+\end{definition}
+
+\subsubsection{Испытания Бернулли. Формула Бернулли.}
+\begin{definition}[Испытания Бернулли]
+
+\textbf{Испытания Бернулли} - последовательность независимых испытаний с бинарным исходом. \\
+
+Пространство элементарных событий - набор двоичных слов. Например: \\
+Подбрасываются 3 монеты: 0 - решка (неудача), 1 - орел (успех). $P$(выпал орел) $= p$ и $P$(выпала решка) $= q$.\\
+
+События: \\
+0 0 0 (вероятность - $q^{3}$)\\
+0 0 1 (вероятность - $p \cdot q^{2}$)\\
+0 1 0 (вероятность - $p \cdot q^{2}$)\\
+0 1 1 (вероятность - $p^{2} \cdot q$)\\
+1 0 0 (вероятность - $p \cdot q^{2}$)\\
+1 0 1 (вероятность - $p^{2} \cdot q$)\\
+1 1 0 (вероятность - $p^{2} \cdot q$)\\
+1 1 1 (вероятность - $p^{3}$)\\
+
+Введем дополнительные обозначения: \\
+Пусть $S_{n}$ - число успехов в $n$-испытаниях Бернулли, тогда: \\
+$P(S_{n} = k) := P_{n}(k)$, $\forall k \in \overline{[0..n]}$ \\
+$P(m_{1} \leq S_{n} \leq m_{2}) = \Sigma_{k=m_{1}}^{k=m_{2}}P_{n}(k)$ $\forall$ $m_{1} \geq 0$, $m_{2} \leq n$, $m_{1} \leq m_{2}$ \\
+
+Тогда легко можно получить \textbf{формулу Бернулли:} 
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item \textbf{Для точного числа успехов:} $P_{n}(k) = C_{n}^{k}p^{k}q^{n-k}$
+    \item \textbf{Для промежутка:} $P(m_{1} \leq S_{n} \leq m_{2}) = \Sigma_{k=m_{1}}^{m_{2}}C_{n}^{k}p^{k}q^{n-k}$
+\end{enumerate}
+
+\end{definition}
+
+\begin{theorem}[Наиболее вероятное число успехов]
+
+Число успехов, что наиболее вероятны, ограничено значением $p(n+1) - 1$. Причем для целого $p(n+1) - 1$ существует два таких числа, а для нецелого - одно. \\
+
+$\square$
+
+Пусть даны $n$ и $p$. Найдем $k$, при котором $P(S_{n} = k)$ - максимальное. \\
+Сравним $P_{n}(k)$ и $P_{n}(k+1)$: \\
+
+$\frac{C_{n}^{k+1}p^{k+1}q^{n-k-1}}{C_{n}^{k}p^{k}q^{n-k}} = \frac{\frac{n!}{(k+1)!(n-k-1)!} \cdot p}{\frac{n!}{k!(n-k!)} \cdot q} = \frac{n-k}{k+1} \cdot \frac{p}{1-p}$ \\
+Найдем решение неравенства: $\frac{n-k}{k+1} \cdot \frac{p}{1-p} \geq 1$ \\
+$(n-k)p \geq (k+1)(1-p)$ \\
+$pn - pk \geq k - kp + 1 - p$ \\
+$k \leq pn + p - 1$ \\
+$k \leq p(n+1) - 1$ \\
+
+Т.к. значения $p$ и $n$ даны, то можно подсчитать значение для k - наиболее вероятного числа успехов.
+
+Рассмотрим два варианта:
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $p(n+1) - 1 \in \mathbb{Z}$: два наиболее вероятных числа успехов - $k$ и $k+1$.
+    \item $p(n+1) - 1 \notin \mathbb{Z}$: одно наиболее вероятное значение.
+\end{enumerate}
+
+\hfill$\blacksquare$
+
+\end{theorem}
+
+\subsubsection{Пуассоновское приближение для схемы Бернулли.}
+\begin{definition}[Пауссоновское приближение]
+При фиксированном числе успехов и $n \rightarrow \infty$, верно следующее: \\
+$C_{n}^{k}p^{k}q^{n-k} \rightarrow \frac{\lambda^{k} \cdot e^{-\lambda}}{k!}$
+
+\end{definition}
+
+\subsubsection{Локальная теорема Муавра – Лапласа.}
+\begin{theorem}[Локальная теорема Муавра-Лапласа]
+
+Пусть: 
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $x_{n} = \frac{k-np}{\sqrt{npq}}$: $n, k \rightarrow \infty$, $x_{n}$ - ограничено.
+    \item $\phi(x) = \frac{1}{\sqrt{2\Pi}} \cdot e^{-\frac{x^{2}}{2}}$ - функция Гаусса.
+\end{enumerate}
+
+Тогда:\\
+$P_{n}(k) \sim \frac{1}{npq} \cdot \phi(x_{n})$, при $n \rightarrow \infty$
+
+$\square$
+
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item Пользуемся формулой Стирлинга: $n! \sim e^{-n}n^{n}\sqrt{2\Pi n}$.
+    \item Пользуемся разложением в ряд Тейлора: $ln(1+x) = x - \frac{x^{2}}{2} + \frac{x^3}{3} + ... + (-1)^{n+1} \frac{x^{n}}{n} + o(x^{n})$
+\end{enumerate}
+
+Аккуратно расписываем $C_{n}^{k}p^{n}q^{n-k}$. При переходе от факториала к экспоненте необходимо будет прологарифмировать. \\
+
+\hfill$\blacksquare$
+
+\end{theorem}
+
+\subsubsection{Интегральная теорема Муавра – Лапласа.}
+\begin{theorem}[Интегральная теорема Муавра-Лапласа]
+
+Пусть: 
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item $x_{n}^{'} = \frac{k_{1}-np}{\sqrt{npq}}$: $n \rightarrow \infty$, $k_{1}$ - левая граница интервала.
+    \item $x_{n}^{''} = \frac{k_{2}-np}{\sqrt{npq}}$: $n \rightarrow \infty$, $k_{2}$ - правая граница интервала.
+    \item $\Phi(x) = \frac{1}{\sqrt{2\Pi}} \cdot \int_{0}^{x} e^{-\frac{x^{2}}{2}} \, dx$.
+\end{enumerate}
+
+Тогда:
+$P_{n}(k_{1}; k_{2}) = \Phi(x^{''}) - \Phi(x^{'})$
+
+\end{theorem}
+
+\subsection{Случайные величины и их распределения.}
+
+\subsubsection{Случайная величина. Функция распределения случайной величины, ее свойства.}
+
+\subsubsection{Непрерывная случайная величина. Плотность распределения, ее свойства. Примеры.}
+
+\subsubsection{Дискретная случайная величина. Способы задания. Примеры.}
+
+\subsubsection{Математическое ожидание и дисперсия. Их свойства.}
+
+\subsubsection{Распределение функций от случайных величин.}
+
+\subsubsection{Случайные векторы. Совместные распределения случайных величин.}
+
+\subsubsection{Независимость случайных величин. Коэффициент корреляции.}
+
+\subsubsection{Многомерное нормальное распределение. Плотность (в невырожденном случае), характеристическая функция. Необходимое и достаточное условие независимости компонент.}
+
+\subsubsection{Условное математическое ожидание. Условная плотность. Условная дисперсия.}
+
+\subsubsection{Условные характеристики для нормального вектора.}
+
+
+\subsection{Предельные теоремы и марковские цепи.}
+
+\subsubsection{Неравенство Чебышева.}
+
+\subsubsection{Типы сходимости в теории вероятностей, связь между ними.}
+
+\subsubsection{Закон больших чисел в форме Чебышева.}
+
+\subsubsection{Характеристические функции случайных величин, их свойства.}
+
+\subsubsection{Формулы обращения для непрерывных и целочисленных случайных величин.}
+
+\subsubsection{Центральная предельная теорема Леви.}
+
+\subsubsection{Цепи Маркова. Определение, матрица переходных вероятностей, матрица перехода за n шагов.}
+
+\subsubsection{Классификация состояний цепи Маркова.}
+
+\subsubsection{Эргодическая теорема.}
+
+
+
+\clearpage
+\section{Математическая статистика.}
+
+
+
+\clearpage
+\section{Список вопросов.}
+
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item Классическое и геометрическое определение вероятности.
+    \item Основные комбинаторные формулы.
+    \item Аксиоматика Колмогорова.
+    \item Условная вероятность. Независимость. Формулы сложения и умножения.
+    \item Формула полной вероятности.
+    \item Формула Байеса.
+    \item Испытания Бернулли. Формула Бернулли.
+    \item Пуассоновское приближение для схемы Бернулли.
+    \item Локальная теорема Муавра – Лапласа.
+    \item Интегральная теорема Муавра – Лапласа.
+    \item Случайная величина. Функция распределения случайной величины, ее свойства.
+    \item Непрерывная случайная величина. Плотность распределения, ее свойства. Примеры.
+    \item Дискретная случайная величина. Способы задания. Примеры.
+    \item Математическое ожидание и дисперсия. Их свойства.
+    \item Распределение функций от случайных величин.
+    \item Случайные векторы. Совместные распределения случайных величин. Вычисление распределений компонент.
+    \item Независимость случайных величин. Коэффициент корреляции.
+    \item Многомерное нормальное распределение. Плотность (в невырожденном случае), характеристическая функция. Необходимое и достаточное условие независимости компонент.
+    \item Неравенство Чебышева.
+    \item Типы сходимости в теории вероятностей, связь между ними.
+    \item Закон больших чисел в форме Чебышева.
+    \item Характеристические функции случайных величин, их свойства.
+    \item Формулы обращения для непрерывных и целочисленных случайных величин.
+    \item Центральная предельная теорема Леви.
+    \item Условное математическое ожидание. Условная плотность. Условная дисперсия.
+    \item Условные характеристики для нормального вектора.
+    \item Цепи Маркова. Определение, матрица переходных вероятностей, матрица перехода за n шагов.
+    \item Классификация состояний цепи Маркова.
+    \item Эргодическая теорема.
+    \item Задачи математической статистики. Оценка параметров, проверка гипотез.
+    \item Основные выборочные характеристики.
+    \item Эмпирическая функция распределения. Теорема Гливенко-Кантелли.
+    \item Свойства статистических оценок (с примерами и доказательствами).
+    \item Оценивание по методу максимального правдоподобия.
+    \item Регулярный эксперимент. Неравенство Рао – Крамера.
+    \item Оценивание по методу моментов.
+    \item Распределение функций от нормальной выборки. Лемма Фишера.
+    \item Доверительные интервалы для параметров нормального распределения.
+    \item Проверка гипотез: понятие ошибок I и II рода, уровень значимости, мощность критерия; критическая область; простые и сложные гипотезы.
+    \item Проверка простой гипотезы по методу хи-квадрат.
+    \item Проверка согласия с помощью критерия Колмогорова.
+    \item Постановка задачи линейной регрессии. Метод наименьших квадратов.
+    \item Несмещенная оценка дисперсии в задаче линейной регрессии.
+\end{enumerate}
+
+\end{document}
