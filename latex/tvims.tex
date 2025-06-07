@@ -787,7 +787,7 @@ $p_{\xi}(x) = F_{\xi}^{'}(x)$ - плотность $\xi$, тогда:
 \vspace{\baselineskip}
 
 Пусть $F_{\xi}(x)$ - строго монотонная функция.\\
-$\eta = F_{\xi}(\xi)$. Тогда:\\
+$\eta = F_{\xi}(x)$. Тогда:\\
 $F_{\eta}(x) = F_{\xi}(F_{\xi}^{-1}(x)) = x$ при $0 < x < 1$.
 
 \vspace{\baselineskip}
@@ -799,11 +799,11 @@ $F_{\eta}(x) = F_{\xi}(F_{\xi}^{-1}(x)) = x$ при $0 < x < 1$.
 \begin{theorem}[Распределение функций случайных векторов]
 
 Пусть $g(\vec{x}): \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$. Тогда при наличии совместной плотности:\\
-$P\{g(\vec{\xi}) \in A\} = P\{\xi \in g^{-1}(A)\} = \int ... \int_{g^{-1}(A)} p_{\vec{\xi}}(t_1, ..., t_n) , dt_n ... dt_1$
+$P\{g(\vec{\xi}) \in A\} = P\{\vec{\xi} \in g^{-1}(A)\} = \int ... \int_{g^{-1}(A)} p_{\vec{\xi}}(t_1, ..., t_n) \, dt_n ... \, dt_1$
 
 \vspace{\baselineskip}
 
-Пусть $g(\vec(x))$ обратима из $\mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, тогда:\\
+Пусть $g(\vec{x})$ обратима из $\mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, тогда:\\
 $p_{g(\vec{\xi})}(\vec{x}) = \frac{1}{\text{det}(J(g^{-1}(\vec{x})))}p_{\vec{\xi}}(g^{-1}(\vec{x}))$
 
 \end{theorem}
@@ -837,7 +837,9 @@ $P\{Z = m\} = \sum_{k=-\infty}^{\infty}P\{X=k\}P\{Y=m-k\}$
 \begin{lemma}[Свертки для непрерывных С.В.]
 Пусть $X$ и $Y$ - абсолютно непрерывные независимые случайные величины, причем $X \sim p_{X}(x)$, $Y \sim p_{Y}(y)$,тогда свертка в общем виде равна:\\
 $P\{X+Y < t\} = \int \int_{x+y < t} p_{X}(x)p_{Y}(y) \, dx \, dy = \int_{-\infty}^{+\infty} \int_{-\infty}^{t-x}p_{X}(x)p_{Y}(y) \, dy \, dx = \int_{-\infty}^{+\infty} p_{X}(x) \int_{-\infty}^{t-x}p_{Y}(y) \, dy \, dx = \int_{-\infty}^{+\infty} p_{X}(x)F_{Y}(t-x) \, dx$, где:\\
-$F_{Y}(y)$ - функция распределения от плотности $p_{Y}(y)$.
+$F_{Y}(y)$ - функция распределения от плотности $p_{Y}(y)$.\\
+$p_{Z}(t) = \int_{-\infty}^{+\infty} p_{X}(x)p_{Y}(t - x) \, dx$
+
 
 \vspace{\baselineskip}
 
@@ -846,7 +848,8 @@ $F_{Y}(y)$ - функция распределения от плотности $
     \item Равномерное распределение на интервале: \\
           $X \sim U[0, 1]$ и $Y \sim U[0, 1]$.\\
           $p_{X}(x) = \mathbf{1}_{\{0 \leq x \leq 1\}}$ и $p_{Y}(y) = \mathbf{1}_{\{0 \leq y \leq 1\}}$ - индикаторные функции плотности.\\
-          $(p_{X} * p_{Y})(t) = \int_{-\infty}^{+\infty} \mathbf{1}_{\{0 \leq x \leq 1\}} \mathbf{1}_{\{0 \leq t - x \leq 1\}} \, dx = \int_{-\infty}^{\infty} = \int_{-\infty}^{+\infty}\mathbf{1}_{\{0 \leq x \leq 1; 0 \leq t - x \leq 1\}} \, dx = \int_{\text{max}(0, t-1)}^{min(1, t)} 1 \, dx = \begin{cases} 
+          $Z = X+Y$ - хотим найти распределение.\\
+          $p_{Z}(t) = (p_{X} * p_{Y})(t) = \int_{-\infty}^{+\infty} \mathbf{1}_{\{0 \leq x \leq 1\}} \mathbf{1}_{\{0 \leq t - x \leq 1\}} \, dx = \int_{-\infty}^{+\infty}\mathbf{1}_{\{0 \leq x \leq 1; 0 \leq t - x \leq 1\}} \, dx = \int_{\text{max}(0, t-1)}^{min(1, t)} 1 \, dx = \begin{cases} 
           t, & t \in [0, 1] \\
           1 - (t - 1), & t \in [1, 2]
           \end{cases}$ 
